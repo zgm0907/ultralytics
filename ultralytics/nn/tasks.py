@@ -1035,7 +1035,8 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
                 C2fCIB,
                 C2PSA,
                 C3k2_PPA,
-                C3k2_FSDA
+                C3k2_FSDA,
+                CloFormerAttnConv
             }:
                 args.insert(2, n)  # number of repeats
                 n = 1
