@@ -15,6 +15,7 @@ import torch.nn as nn
 from  ultralytics.nn.modules.PPA import *
 from  ultralytics.nn.modules.FSDA import C3k2_FSDA
 from ultralytics.nn.backbone.CloFormerAttnConv import CloFormerAttnConv
+from ultralytics.nn.attention.MLLA import MLLAttention
 from ultralytics.nn.modules import (
     AIFI,
     C1,
@@ -1044,8 +1045,9 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
                 legacy = False
                 if scale in "mlx":
                     args[3] = True
-        elif m is AIFI:
-            args = [ch[f], *args]
+        elif m in {MLLAttention}:
+            args = [ch[f], *args]  
+
         elif m in {HGStem, HGBlock}:
             c1, cm, c2 = ch[f], args[0], args[1]
             args = [c1, cm, c2, *args[2:]]
