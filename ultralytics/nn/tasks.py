@@ -17,6 +17,7 @@ from  ultralytics.nn.modules.FSDA import C3k2_FSDA
 from ultralytics.nn.backbone.CloFormerAttnConv import CloFormerAttnConv
 from ultralytics.nn.attention.MLLA import MLLAttention
 from ultralytics.nn.otherModules.SPPF_LSKA import SPPF_LSKA
+from ultralytics.nn.mixed.ResBlock_GAM import ResBlock_GAM
 from ultralytics.nn.modules import (
     AIFI,
     C1,
