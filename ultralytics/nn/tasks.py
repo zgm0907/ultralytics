@@ -16,6 +16,7 @@ from  ultralytics.nn.modules.PPA import *
 from  ultralytics.nn.modules.FSDA import C3k2_FSDA
 from ultralytics.nn.backbone.CloFormerAttnConv import CloFormerAttnConv
 from ultralytics.nn.attention.MLLA import MLLAttention
+from ultralytics.nn.otherModules.SPPF_LSKA import SPPF_LSKA
 from ultralytics.nn.modules import (
     AIFI,
     C1,
@@ -1007,7 +1008,8 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
             C2fCIB,
             C3k2_PPA,
             C3k2_FSDA,
-            CloFormerAttnConv
+            CloFormerAttnConv,
+            SPPF_LSKA
             
         }:
             c1, c2 = ch[f], args[0]
@@ -1037,7 +1039,8 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
                 C2PSA,
                 C3k2_PPA,
                 C3k2_FSDA,
-                CloFormerAttnConv
+                CloFormerAttnConv,
+                SPPF_LSKA
             }:
                 args.insert(2, n)  # number of repeats
                 n = 1
