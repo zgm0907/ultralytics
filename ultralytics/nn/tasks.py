@@ -1010,7 +1010,9 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
             C3k2_PPA,
             C3k2_FSDA,
             CloFormerAttnConv,
-            SPPF_LSKA
+            SPPF_LSKA,
+            ResBlock_GAM
+
             
         }:
             c1, c2 = ch[f], args[0]
