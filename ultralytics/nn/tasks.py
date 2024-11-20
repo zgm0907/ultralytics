@@ -18,6 +18,7 @@ from ultralytics.nn.backbone.CloFormerAttnConv import CloFormerAttnConv
 from ultralytics.nn.attention.MLLA import MLLAttention
 from ultralytics.nn.otherModules.SPPF_LSKA import SPPF_LSKA
 from ultralytics.nn.mixed.ResBlock_GAM import ResBlock_GAM
+from ultralytics.nn.attention.TripletAttention import TripletAttention
 from ultralytics.nn.modules import (
     AIFI,
     C1,
@@ -1051,8 +1052,9 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
                 legacy = False
                 if scale in "mlx":
                     args[3] = True
-        elif m in {MLLAttention}:
-            args = [ch[f], *args]  
+        elif m in {TripletAttention}:
+            args = [ch[f], *args]
+
 
         elif m in {HGStem, HGBlock}:
             c1, cm, c2 = ch[f], args[0], args[1]
