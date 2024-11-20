@@ -19,6 +19,7 @@ from ultralytics.nn.otherModules.SPPF_LSKA import SPPF_LSKA
 from ultralytics.nn.mixed.ResBlock_GAM import ResBlock_GAM
 from ultralytics.nn.attention.MLLA import MLLAttention
 from ultralytics.nn.attention.TripletAttention import TripletAttention
+from ultralytics.nn.featureFusion.ASFYOLO import attention_model, Add, ScalSeq, Zoom_cat
 from ultralytics.nn.modules import (
     AIFI,
     C1,
@@ -1052,20 +1053,17 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
                 legacy = False
                 if scale in "mlx":
                     args[3] = True
-        elif m in {TripletAttention}:
-            args = [ch[f], *args]
+        elif m is Zoom_cat:
+            c2 = sum(ch[x] for x in f)
+        elif m is Add:
+            c2 = ch[f[-1]]
+        elif m is ScalSeq:
+            c1 = [ch[x] for x in f]
+            c2 = make_divisible(args[0] * width, 8)
+            args = [c1, c2]
+        elif m is attention_model:
+            args = [ch[f[-1]]]
 
-        elif m in {MLLAttention}:
-            args = [ch[f], *args]  
-
-        elif m in {HGStem, HGBlock}:
-            c1, cm, c2 = ch[f], args[0], args[1]
-            args = [c1, cm, c2, *args[2:]]
-            if m is HGBlock:
-                args.insert(4, n)  # number of repeats
-                n = 1
-        elif m is ResNetLayer:
-            c2 = args[1] if args[3] else args[1] * 4
         elif m is nn.BatchNorm2d:
             args = [ch[f]]
         elif m is Concat:
