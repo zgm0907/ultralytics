@@ -1,3 +1,4 @@
+
 # Ultralytics YOLO 🚀, AGPL-3.0 license
 # YOLO11 object detection model with P3-P5 outputs. For Usage examples see https://docs.ultralytics.com/tasks/detect
 
@@ -48,4 +49,6 @@ head:
   - [-1, 1, MLLAttention, [1024]]  # 25
 
   - [[17, 21, 25], 1, Detect, [nc]] # Detect(P3, P4, P5)
+
+
 
