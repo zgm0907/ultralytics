@@ -989,9 +989,6 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
     for i, (f, n, m, args) in enumerate(d["backbone"] + d["head"]):  # from, number, module, args
         t = m
         m = getattr(torch.nn, m[3:]) if "nn." in m else globals()[m]  # get module
-
-    for i, (f, n, m, args) in enumerate(d["backbone"] + d["head"]):  # from, number, module, args
-        m = getattr(torch.nn, m[3:]) if "nn." in m else globals()[m]  # get module
         for j, a in enumerate(args):
             if isinstance(a, str):
                 with contextlib.suppress(ValueError):
