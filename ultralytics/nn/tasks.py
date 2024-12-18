@@ -11,6 +11,7 @@ import torch
 import torch.nn as nn
 from ultralytics.nn.C3k2.C3k2_WTConv import C3k2_WTConv  
 from ultralytics.nn.backbone.EfficientViT import EfficientViT_M0, EfficientViT_M1, EfficientViT_M2, EfficientViT_M3, EfficientViT_M4, EfficientViT_M5
+from ultralytics.nn.C3k2.C3k2_DWR import C3k2_DWR
 from ultralytics.nn.modules import (
     AIFI,
     C1,
@@ -999,6 +1000,8 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
             PSA,
             SCDown,
             C2fCIB,
+            C3k2_DWR,
+
    
 
         }:
@@ -1029,6 +1032,8 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
                 C2fCIB,
                 C2PSA,
                 C3k2_WTConv,
+                C3k2_DWR,
+
 
             }:
                 args.insert(2, n)  # number of repeats
