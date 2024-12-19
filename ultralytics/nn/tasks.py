@@ -14,6 +14,7 @@ from ultralytics.nn.backbone.EfficientViT import EfficientViT_M0, EfficientViT_M
 from ultralytics.nn.C3k2.C3k2_DWR import C3k2_DWR
 from ultralytics.nn.C3k2.C3k2_FMB import C3k2_FMB
 from ultralytics.nn.head.Detect_DyHead import Detect_DyHead
+from ultralytics.nn.head.Detect_LSCD import Detect_LSCD
 from ultralytics.nn.modules import (
     AIFI,
     C1,
@@ -262,7 +263,7 @@ class BaseModel(nn.Module):
         """
         self = super()._apply(fn)
         m = self.model[-1]  # Detect()
-        if isinstance(m, (Detect,Detect_DyHead)):  # includes all Detect subclasses like Segment, Pose, OBB, WorldDetect
+        if isinstance(m, (Detect,Detect_DyHead,Detect_LSCD)):  # includes all Detect subclasses like Segment, Pose, OBB, WorldDetect
             m.stride = fn(m.stride)
             m.anchors = fn(m.anchors)
             m.strides = fn(m.strides)
@@ -328,7 +329,7 @@ class DetectionModel(BaseModel):
 
         # Build strides
         m = self.model[-1]  # Detect()
-        if isinstance(m, (Detect,Detect_DyHead)):  # includes all Detect subclasses like Segment, Pose, OBB, WorldDetect
+        if isinstance(m, (Detect,Detect_DyHead,Detect_LSCD)):  # includes all Detect subclasses like Segment, Pose, OBB, WorldDetect
             s = 256  # 2x min stride
             m.inplace = self.inplace
 
@@ -1052,7 +1053,9 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
             c2 = m.channels      
         elif m in {Detect_DyHead}:
             args.append([ch[x] for x in f])
-
+        elif m in {Detect_LSCD}:
+            args.append([ch[x] for x in f]) 
+            args[1] = make_divisible(min(args[1], max_channels) * width, 8)
         elif m is AIFI:
             args = [ch[f], *args]
         elif m in {HGStem, HGBlock}:
