@@ -12,7 +12,8 @@ import torch.nn as nn
 from ultralytics.nn.C3k2.C3k2_WTConv import C3k2_WTConv  
 from ultralytics.nn.backbone.EfficientViT import EfficientViT_M0, EfficientViT_M1, EfficientViT_M2, EfficientViT_M3, EfficientViT_M4, EfficientViT_M5
 from ultralytics.nn.C3k2.C3k2_DWR import C3k2_DWR
-from ultralytics.nn.C3k2.C3k2_FMB import C3k2_FMB  
+from ultralytics.nn.C3k2.C3k2_FMB import C3k2_FMB
+from ultralytics.nn.head.Detect_DyHead import Detect_DyHead
 from ultralytics.nn.modules import (
     AIFI,
     C1,
@@ -261,7 +262,7 @@ class BaseModel(nn.Module):
         """
         self = super()._apply(fn)
         m = self.model[-1]  # Detect()
-        if isinstance(m, Detect):  # includes all Detect subclasses like Segment, Pose, OBB, WorldDetect
+        if isinstance(m, (Detect,Detect_DyHead)):  # includes all Detect subclasses like Segment, Pose, OBB, WorldDetect
             m.stride = fn(m.stride)
             m.anchors = fn(m.anchors)
             m.strides = fn(m.strides)
@@ -327,7 +328,7 @@ class DetectionModel(BaseModel):
 
         # Build strides
         m = self.model[-1]  # Detect()
-        if isinstance(m, Detect):  # includes all Detect subclasses like Segment, Pose, OBB, WorldDetect
+        if isinstance(m, (Detect,Detect_DyHead)):  # includes all Detect subclasses like Segment, Pose, OBB, WorldDetect
             s = 256  # 2x min stride
             m.inplace = self.inplace
 
@@ -1049,6 +1050,8 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
         elif m in {EfficientViT_M0, EfficientViT_M1, EfficientViT_M2, EfficientViT_M3, EfficientViT_M4, EfficientViT_M5}:            
             m = m(*args)
             c2 = m.channels      
+        elif m in {Detect_DyHead}:
+            args.append([ch[x] for x in f])
 
         elif m is AIFI:
             args = [ch[f], *args]
