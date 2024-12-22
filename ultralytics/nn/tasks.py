@@ -18,6 +18,7 @@ from ultralytics.nn.head.Detect_LSCD import Detect_LSCD
 from ultralytics.nn.head.DetectDeepDBB import DetectDeepDBB
 from ultralytics.nn.featureFusion.Slimneck import GSConv, VoVGSCSP
 from ultralytics.nn.attention.stoken_attention import StokenAttention
+from ultralytics.nn.attention.CAA import  CAA 
 from ultralytics.nn.modules import (
     AIFI,
     C1,
@@ -1053,6 +1054,10 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
                 legacy = False
                 if scale in "mlx":
                     args[3] = True
+        elif m in {CAA}:
+            args = [ch[f], *args]
+            
+
         elif m in {StokenAttention}:
             args = [ch[f],  *args] 
             
