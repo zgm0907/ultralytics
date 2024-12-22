@@ -20,6 +20,7 @@ from ultralytics.nn.featureFusion.Slimneck import GSConv, VoVGSCSP
 from ultralytics.nn.attention.stoken_attention import StokenAttention
 from ultralytics.nn.attention.CAA import  CAA 
 from ultralytics.nn.block.DA_Net import DualAttentionBlock,C3k2_DAB
+from ultralytics.nn.attention.DSAM import C2PSA_DSAM,DSAM
 from ultralytics.nn.modules import (
     AIFI,
     C1,
@@ -1013,6 +1014,7 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
             GSConv, 
             VoVGSCSP,
             DualAttentionBlock,C3k2_DAB
+            C2PSA_DSAM
             
 
 
@@ -1049,6 +1051,7 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
                 C3k2_DWR,
                 C3k2_FMB,
                 C3k2_DAB,
+                C2PSA_DSAM,DSAM
 
 
             }:
