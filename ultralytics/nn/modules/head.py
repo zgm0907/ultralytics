@@ -57,6 +57,7 @@ class Detect(nn.Module):
                 for x in ch
             )
         )
+        self.stem = nn.ModuleList(nn.Sequential(Partial_conv3(x, 4), Conv(x, x, 1)) for x in ch)
         self.dfl = DFL(self.reg_max) if self.reg_max > 1 else nn.Identity()
 
         if self.end2end:
@@ -69,6 +70,7 @@ class Detect(nn.Module):
             return self.forward_end2end(x)
 
         for i in range(self.nl):
+            x[i] = self.stem[i](x[i])
             x[i] = torch.cat((self.cv2[i](x[i]), self.cv3[i](x[i])), 1)
         if self.training:  # Training path
             return x
