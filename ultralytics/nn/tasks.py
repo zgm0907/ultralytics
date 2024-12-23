@@ -23,6 +23,7 @@ from ultralytics.nn.block.DA_Net import DualAttentionBlock,C3k2_DAB
 from ultralytics.nn.attention.DSAM import C2PSA_DSAM,DSAM
 from ultralytics.nn.block.FreqFormer import C3k2_SFA,C3k2_CTA
 from ultralytics.nn.block.SHViT import C3k2_SHSA
+from ultralytics.nn.head.goldyolo import IFM,SimFusion_3in,SimFusion_4in,InjectionMultiSum_Auto_pool,PyramidPoolAgg,TopBasicLayer,AdvPoolFusion
 from ultralytics.nn.modules import (
     AIFI,
     C1,
@@ -1072,6 +1073,28 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
                     args[3] = True
         elif m in {CAA}:
             args = [ch[f], *args]
+                    #####################gold-yolo##################
+        elif m in {SimFusion_4in, AdvPoolFusion}:
+            c2 = sum(ch[x] for x in f)
+        elif m is SimFusion_3in:
+            c2 = args[0]
+            if c2 != nc:  # if c2 not equal to number of classes (i.e. for Classify() output)
+                c2 = make_divisible(min(c2, max_channels) * width, 8)
+            args = [[ch[f_] for f_ in f], c2]
+        elif m is IFM:
+            c1 = ch[f]
+            c2 = sum(args[0])
+            args = [c1, *args]
+        elif m is InjectionMultiSum_Auto_pool:
+            c1 = ch[f[0]]
+            c2 = args[0]
+            args = [c1, *args]
+        elif m is PyramidPoolAgg:
+            c2 = args[0]
+            args = [sum([ch[f_] for f_ in f]), *args]
+        elif m is TopBasicLayer:
+            c2 = sum(args[1])
+        #####################gold-yolo##################
             
 
         elif m in {StokenAttention}:
