@@ -22,6 +22,7 @@ from ultralytics.nn.attention.CAA import  CAA
 from ultralytics.nn.block.DA_Net import DualAttentionBlock,C3k2_DAB
 from ultralytics.nn.attention.DSAM import C2PSA_DSAM,DSAM
 from ultralytics.nn.block.FreqFormer import C3k2_SFA,C3k2_CTA
+from ultralytics.nn.block.SHViT import C3k2_SHSA
 from ultralytics.nn.modules import (
     AIFI,
     C1,
@@ -1019,6 +1020,7 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
             C2PSA_DSAM,
             C3k2_SFA,
             C3k2_CTA,
+            C3k2_SHSA,
             
 
 
@@ -1058,6 +1060,7 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
                 C2PSA_DSAM,
                 DSAM,C3k2_SFA,
                 C3k2_CTA,
+                C3k2_SHSA,
 
 
             }:
