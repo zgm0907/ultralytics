@@ -57,7 +57,7 @@ class Detect(nn.Module):
                 for x in ch
             )
         )
-        self.stem = nn.ModuleList(nn.Sequential(Partial_conv3(x, 4), Conv(x, x, 1)) for x in ch)
+   
         self.dfl = DFL(self.reg_max) if self.reg_max > 1 else nn.Identity()
 
         if self.end2end:
@@ -70,7 +70,7 @@ class Detect(nn.Module):
             return self.forward_end2end(x)
 
         for i in range(self.nl):
-            x[i] = self.stem[i](x[i])
+           
             x[i] = torch.cat((self.cv2[i](x[i]), self.cv3[i](x[i])), 1)
         if self.training:  # Training path
             return x
@@ -174,37 +174,7 @@ class Detect(nn.Module):
         scores, index = scores.flatten(1).topk(min(max_det, anchors))
         i = torch.arange(batch_size)[..., None]  # batch indices
         return torch.cat([boxes[i, index // nc], scores[..., None], (index % nc)[..., None].float()], dim=-1)
-        ###################### PConv  ####     start#############################
- 
- 
-class Partial_conv3(nn.Module):
-    def __init__(self, dim, n_div=4, forward='split_cat'):
-        super().__init__()
-        self.dim_conv3 = dim // n_div
-        self.dim_untouched = dim - self.dim_conv3
-        self.partial_conv3 = nn.Conv2d(self.dim_conv3, self.dim_conv3, 3, 1, 1, bias=False)
- 
-        if forward == 'slicing':
-            self.forward = self.forward_slicing
-        elif forward == 'split_cat':
-            self.forward = self.forward_split_cat
-        else:
-            raise NotImplementedError
- 
-    def forward_slicing(self, x):
-        # only for inference
-        x = x.clone()  # !!! Keep the original input intact for the residual connection later
-        x[:, :self.dim_conv3, :, :] = self.partial_conv3(x[:, :self.dim_conv3, :, :])
-        return x
- 
-    def forward_split_cat(self, x):
-        # for training/inference
-        x1, x2 = torch.split(x, [self.dim_conv3, self.dim_untouched], dim=1)
-        x1 = self.partial_conv3(x1)
-        x = torch.cat((x1, x2), 1)
-        return x
- 
-###################### PConv  ####     end#############################
+        
 
 
 class Segment(Detect):
