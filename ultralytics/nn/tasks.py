@@ -25,6 +25,7 @@ from ultralytics.nn.block.FreqFormer import C3k2_SFA,C3k2_CTA
 from ultralytics.nn.block.SHViT import C3k2_SHSA
 from ultralytics.nn.head.goldyolo import IFM,SimFusion_3in,SimFusion_4in,InjectionMultiSum_Auto_pool,PyramidPoolAgg,TopBasicLayer,AdvPoolFusion
 from ultralytics.nn.block.CACSYOLO import C3k2_CACS
+from ultralytics.nn.attention.attention import ContextAggregation
 from ultralytics.nn.modules import (
     AIFI,
     C1,
@@ -1024,6 +1025,7 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
             C3k2_CTA,
             C3k2_SHSA,
             C3k2_CACS,
+            ContextAggregation,
             
 
 
