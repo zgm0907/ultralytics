@@ -29,6 +29,7 @@ from ultralytics.nn.attention.attention import ContextAggregation
 from ultralytics.nn.Conv.dynamic_snake_conv import C3k2_DySnakeConv
 from ultralytics.nn.attention.SCSA import SCSA 
 from ultralytics.nn.modules.head import Detect_DCNv4
+from ultralytics.nn.attention.AxialAttention import AxialImageTransformer 
 from ultralytics.nn.modules import (
     AIFI,
     C1,
@@ -1083,6 +1084,11 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
                 legacy = False
                 if scale in "mlx":
                     args[3] = True
+                    
+        elif m in {AxialImageTransformer}:
+            c2 = ch[f]
+            args = [c2,  *args] 
+
         elif m in {CAA}:
             args = [ch[f], *args]
                     #####################gold-yolo##################
