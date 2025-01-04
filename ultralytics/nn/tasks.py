@@ -30,6 +30,8 @@ from ultralytics.nn.Conv.dynamic_snake_conv import C3k2_DySnakeConv
 from ultralytics.nn.attention.SCSA import SCSA 
 from ultralytics.nn.modules.head import Detect_DCNv4
 from ultralytics.nn.attention.AxialAttention import AxialImageTransformer 
+from ultralytics.nn.featureFusion.MANet import MANet 
+
 from ultralytics.nn.modules import (
     AIFI,
     C1,
@@ -1032,6 +1034,8 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
             ContextAggregation,
             C3k2_DySnakeConv,
             SCSA,
+            MANet,
+
 
             
 
@@ -1075,6 +1079,8 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
                 C3k2_SHSA,
                 C3k2_CACS,
                 C3k2_DySnakeConv,
+                MANet,
+
 
 
             }:
