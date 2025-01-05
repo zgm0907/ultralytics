@@ -32,7 +32,7 @@ from ultralytics.nn.modules.head import Detect_DCNv4
 from ultralytics.nn.attention.AxialAttention import AxialImageTransformer 
 from ultralytics.nn.featureFusion.MANet import MANet 
 # from ultralytics.nn.backbone.fasternet import fasternet_t0, fasternet_t1, fasternet_t2, fasternet_s, fasternet_m, fasternet_l
-from ultralytics.nn.conv.SPConv import SPConv  
+from ultralytics.nn.Conv.SPConv import SPConv  
 
 
 
