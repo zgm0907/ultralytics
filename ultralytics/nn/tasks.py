@@ -32,6 +32,7 @@ from ultralytics.nn.modules.head import Detect_DCNv4
 from ultralytics.nn.attention.AxialAttention import AxialImageTransformer 
 from ultralytics.nn.featureFusion.MANet import MANet 
 
+
 from ultralytics.nn.modules import (
     AIFI,
     C1,
