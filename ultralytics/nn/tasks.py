@@ -28,7 +28,6 @@ from ultralytics.nn.block.CACSYOLO import C3k2_CACS
 from ultralytics.nn.attention.attention import ContextAggregation
 from ultralytics.nn.Conv.dynamic_snake_conv import C3k2_DySnakeConv
 from ultralytics.nn.attention.SCSA import SCSA 
-from ultralytics.nn.modules.head import Detect_DCNv4
 from ultralytics.nn.attention.AxialAttention import AxialImageTransformer 
 from ultralytics.nn.featureFusion.MANet import MANet 
 # from ultralytics.nn.backbone.fasternet import fasternet_t0, fasternet_t1, fasternet_t2, fasternet_s, fasternet_m, fasternet_l
