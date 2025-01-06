@@ -34,6 +34,8 @@ from ultralytics.nn.featureFusion.MANet import MANet
 from ultralytics.nn.Conv.SPConv import SPConv  
 from ultralytics.nn.Conv.LAE import LAE
 from ultralytics.nn.Conv.DCNv2 import DCNv2
+from ultralytics.nn.featureFusion.RepNCSPELAN4 import RepNCSPELAN4
+
 
 
 
@@ -1153,6 +1155,18 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
         # elif m in {fasternet_t0, fasternet_t1, fasternet_t2, fasternet_s, fasternet_m, fasternet_l}:            
         #     m = m(*args)
         #     c2 = m.channels
+
+
+
+
+        elif m in {RepNCSPELAN4}:
+            c1, c2 = ch[f], args[0]
+            if c2 != no:  # if not output
+                c2 = make_divisible(c2 * gw, 8)
+
+            args = [c1, c2, *args[1:]]
+                
+
 
                         
         elif m in {LAE}:
