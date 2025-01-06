@@ -32,7 +32,8 @@ from ultralytics.nn.attention.AxialAttention import AxialImageTransformer
 from ultralytics.nn.featureFusion.MANet import MANet 
 # from ultralytics.nn.backbone.fasternet import fasternet_t0, fasternet_t1, fasternet_t2, fasternet_s, fasternet_m, fasternet_l
 from ultralytics.nn.Conv.SPConv import SPConv  
-from ultralytics.nn.Conv.LAE import LAE  
+from ultralytics.nn.Conv.LAE import LAE
+from ultralytics.nn.Conv.DCNv2 import DCNv2
 
 
 
@@ -1084,6 +1085,7 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
             SCSA,
             MANet,
             SPConv,
+            DCNv2,
 
     
 
