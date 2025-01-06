@@ -33,6 +33,8 @@ from ultralytics.nn.attention.AxialAttention import AxialImageTransformer
 from ultralytics.nn.featureFusion.MANet import MANet 
 # from ultralytics.nn.backbone.fasternet import fasternet_t0, fasternet_t1, fasternet_t2, fasternet_s, fasternet_m, fasternet_l
 from ultralytics.nn.Conv.SPConv import SPConv  
+from ultralytics.nn.Conv.LAE import LAE  
+
 
 
 
@@ -1141,7 +1143,14 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
                     
         # elif m in {fasternet_t0, fasternet_t1, fasternet_t2, fasternet_s, fasternet_m, fasternet_l}:            
         #     m = m(*args)
-        #     c2 = m.channels    
+        #     c2 = m.channels
+
+                        
+        elif m in {LAE}:
+            c2 = ch[f]
+            args = [c2,  *args]         
+                
+
 
                     
         elif m in {AxialImageTransformer}:
