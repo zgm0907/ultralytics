@@ -34,6 +34,8 @@ from ultralytics.nn.featureFusion.MANet import MANet
 # from ultralytics.nn.backbone.fasternet import fasternet_t0, fasternet_t1, fasternet_t2, fasternet_s, fasternet_m, fasternet_l
 from ultralytics.nn.Conv.SPConv import SPConv  
 from ultralytics.nn.Conv.LAE import LAE  
+from ultralytics.nn.attention.HaloAttention import HaloAttention 
+
 
 
 
@@ -1140,6 +1142,12 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
                 legacy = False
                 if scale in "mlx":
                     args[3] = True
+
+
+        elif m in {HaloAttention}:
+            c2 = ch[f]
+            args = [c2,  *args] 
+
                     
         # elif m in {fasternet_t0, fasternet_t1, fasternet_t2, fasternet_s, fasternet_m, fasternet_l}:            
         #     m = m(*args)
