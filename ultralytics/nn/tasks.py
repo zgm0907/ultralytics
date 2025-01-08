@@ -35,6 +35,7 @@ from ultralytics.nn.Conv.SPConv import SPConv
 from ultralytics.nn.Conv.LAE import LAE
 from ultralytics.nn.Conv.DCNv2 import DCNv2
 from ultralytics.nn.featureFusion.RepNCSPELAN4 import RepNCSPELAN4
+from ultralytics.nn.block.DEANet_SWS import CGAFusion_SWS
 
 
 
@@ -1156,7 +1157,9 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
         #     m = m(*args)
         #     c2 = m.channels
 
-
+        elif m is CGAFusion_SWS:
+            c2 = ch[f[1]]
+            args = [c2, *args]
 
 
         elif m in {RepNCSPELAN4}:
