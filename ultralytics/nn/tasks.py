@@ -36,6 +36,8 @@ from ultralytics.nn.Conv.LAE import LAE
 from ultralytics.nn.Conv.DCNv2 import DCNv2
 from ultralytics.nn.featureFusion.RepNCSPELAN4 import RepNCSPELAN4
 from ultralytics.nn.block.DEANet_SWS import CGAFusion_SWS
+from ultralytics.nn.C3k2.C3k2_DeepDBB import C3k2_DeepDBB 
+
 
 
 
@@ -1090,6 +1092,8 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
             MANet,
             SPConv,
             DCNv2,
+            C3k2_DeepDBB,
+
            
 
     
@@ -1138,6 +1142,8 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
                 C3k2_CACS,
                 C3k2_DySnakeConv,
                 MANet,
+                C3k2_DeepDBB,
+
                
 
 
