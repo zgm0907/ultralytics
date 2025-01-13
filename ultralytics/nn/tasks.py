@@ -38,6 +38,7 @@ from ultralytics.nn.featureFusion.RepNCSPELAN4 import RepNCSPELAN4
 from ultralytics.nn.block.DEANet_SWS import CGAFusion_SWS
 from ultralytics.nn.C3k2.C3k2_DeepDBB import C3k2_DeepDBB 
 from ultralytics.nn.block.tsdn import C3k2_DTAB
+from ultralytics.nn.block.HCFNetblocks import MDCR
 
 
 
@@ -1095,6 +1096,7 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
             DCNv2,
             C3k2_DeepDBB,
             C3k2_DTAB,
+            MDCR,
 
            
 
