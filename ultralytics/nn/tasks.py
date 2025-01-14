@@ -39,6 +39,8 @@ from ultralytics.nn.block.DEANet_SWS import CGAFusion_SWS
 from ultralytics.nn.C3k2.C3k2_DeepDBB import C3k2_DeepDBB 
 from ultralytics.nn.block.tsdn import C3k2_DTAB
 from ultralytics.nn.block.HCFNetblocks import MDCR
+from ultralytics.nn.featureFusion.ASFYOLO import attention_model, Add, ScalSeq, Zoom_cat
+
 
 
 
@@ -1160,6 +1162,19 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
                 legacy = False
                 if scale in "mlx":
                     args[3] = True
+
+
+        elif m is Zoom_cat:
+            c2 = sum(ch[x] for x in f)
+        elif m is Add:
+            c2 = ch[f[-1]]
+        elif m is ScalSeq:
+            c1 = [ch[x] for x in f]
+            c2 = make_divisible(args[0] * width, 8)
+            args = [c1, c2]
+        elif m is attention_model:
+            args = [ch[f[-1]]]
+
 
 
 
