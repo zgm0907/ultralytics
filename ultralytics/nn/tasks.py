@@ -43,6 +43,8 @@ from ultralytics.nn.featureFusion.ASFYOLO import attention_model, Add, ScalSeq, 
 from ultralytics.nn.Conv.APConv import C3k2_AP,PConv
 from ultralytics.nn.attention.MSFE import MSFE
 from ultralytics.nn.attention.CPCA import CPCA
+from ultralytics.nn.featureFusion.CARAFE import CARAFE
+
 
 
 
@@ -1182,6 +1184,11 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
 
         elif m is Zoom_cat:
             c2 = sum(ch[x] for x in f)
+
+        
+        elif m is CARAFE:
+            args = [ch[f], *args]
+
         elif m is Add:
             c2 = ch[f[-1]]
         elif m is ScalSeq:
