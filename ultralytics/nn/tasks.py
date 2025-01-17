@@ -42,6 +42,8 @@ from ultralytics.nn.block.HCFNetblocks import MDCR
 from ultralytics.nn.featureFusion.ASFYOLO import attention_model, Add, ScalSeq, Zoom_cat
 from ultralytics.nn.Conv.APConv import C3k2_AP,PConv
 from ultralytics.nn.attention.MSFE import MSFE
+from ultralytics.nn.attention.CPCA import CPCA
+
 
 
 
@@ -1166,6 +1168,12 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
             }:
                 args.insert(2, n)  # number of repeats
                 n = 1
+
+
+        elif m in {CPCA}:
+            c2 = ch[f]
+            args = [c2]
+
             if m is C3k2:  # for M/L/X sizes
                 legacy = False
                 if scale in "mlx":
