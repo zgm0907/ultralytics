@@ -1154,7 +1154,7 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
                 C3k2_DeepDBB,
                 C3k2_DTAB,
                 C3k2_AP,
-                PConv,
+                
 
                
 
