@@ -41,6 +41,8 @@ from ultralytics.nn.block.tsdn import C3k2_DTAB
 from ultralytics.nn.block.HCFNetblocks import MDCR
 from ultralytics.nn.featureFusion.ASFYOLO import attention_model, Add, ScalSeq, Zoom_cat
 from ultralytics.nn.Conv.APConv import C3k2_AP,PConv
+from ultralytics.nn.attention.MSFE import MSFE
+
 
 
 
@@ -1102,6 +1104,7 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
             MDCR,
             C3k2_AP,
             PConv,
+            MSFE,
 
            
 
