@@ -44,6 +44,7 @@ from ultralytics.nn.Conv.APConv import C3k2_AP,PConv
 from ultralytics.nn.attention.MSFE import MSFE
 from ultralytics.nn.attention.CPCA import CPCA
 from ultralytics.nn.featureFusion.CARAFE import CARAFE
+from ultralytics.nn.block.StripRCNN import C3k2_Strip,StripBlock
 
 
 
@@ -1109,6 +1110,8 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
             C3k2_AP,
             PConv,
             MSFE,
+            C3k2_Strip,
+            StripBlock,
 
            
 
@@ -1161,6 +1164,7 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
                 C3k2_DeepDBB,
                 C3k2_DTAB,
                 C3k2_AP,
+                C3k2_Strip,
                 
 
                
